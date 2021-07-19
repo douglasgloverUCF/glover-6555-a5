@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#refreshTable" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.MainWindowController">
+   <children>
+      <MenuBar>
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#SaveAsButtonClicked" text="Save As..." />
+                  <MenuItem mnemonicParsing="false" onAction="#LoadButtonClicked" text="Load..." />
+                  <MenuItem mnemonicParsing="false" onAction="#CloseButtonClicked" text="Close" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#InstructionsButtonClicked" text="Instructions" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <ToolBar prefHeight="40.0" prefWidth="200.0">
+        <items>
+          <Button mnemonicParsing="false" onAction="#AddItemButtonClicked" text="Add Item" />
+            <Button fx:id="editButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#EditItemButtonClicked" text="Edit Item" />
+            <Button fx:id="removeButton" layoutX="80.0" layoutY="10.0" mnemonicParsing="false" onAction="#RemoveItemButtonClicked" text="Remove Item" />
+            <Line endY="20.0" stroke="#c3c3c3" strokeWidth="2.0" />
+            <Button mnemonicParsing="false" onAction="#SearchButtonClicked" text="Search..." />
+        </items>
+      </ToolBar>
+      <TableView fx:id="table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#tableClicked">
+         <columns>
+            <TableColumn fx:id="valueColumn" prefWidth="75.0" text="Value" />
+            <TableColumn fx:id="serialColumn" prefWidth="125.0" text="Serial #" />
+            <TableColumn fx:id="nameColumn" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="400.0" text="Name" />
+         </columns>
+      </TableView>
+   </children>
+</VBox>
