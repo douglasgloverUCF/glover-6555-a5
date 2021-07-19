@@ -4,18 +4,18 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class InventoryItem {
-    private final SimpleDoubleProperty value;
+    private final SimpleStringProperty value;
     private final SimpleStringProperty serial;
     private final SimpleStringProperty name;
 
-    public InventoryItem(double givenValue, String givenSerial, String givenName)
+    public InventoryItem(String givenValue, String givenSerial, String givenName)
     {
-        value = new SimpleDoubleProperty(givenValue);
+        value = new SimpleStringProperty(givenValue);
         serial = new SimpleStringProperty(givenSerial);
         name = new SimpleStringProperty(givenName);
     }
 
-    public void setValue(double givenValue)
+    public void setValue(String givenValue)
     {
         value.setValue(givenValue);
     }
@@ -28,7 +28,7 @@ public class InventoryItem {
         name.set(givenName);
     }
 
-    public double getValue()
+    public String getValue()
     {
         return value.getValue();
     }

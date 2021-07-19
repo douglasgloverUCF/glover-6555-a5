@@ -15,17 +15,15 @@ public class EditItemWindowController extends MainWindowController {
     private void initialize()
     {
         InventoryItem selectedItem = model.getSelectedItem();
-        nameBox.setText(model.getSelectedItem().getName());
+        nameBox.setText(selectedItem.getName());
         serialBox.setText(selectedItem.getSerial());
-        String valueString = String.valueOf(selectedItem.getValue());
-        valueBox.setText(valueString);
+        valueBox.setText(selectedItem.getValue());
     }
     @FXML
     public void editButtonClicked(ActionEvent actionEvent) {
         String name = nameBox.getText();
         String serial = serialBox.getText();
-        String valueString = valueBox.getText();
-        double value = Double.parseDouble(valueString);
+        String value = valueBox.getText();
         model.editItem(value, serial, name);
         scenes.closeScene(popup);
     }

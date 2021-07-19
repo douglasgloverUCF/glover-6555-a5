@@ -35,13 +35,14 @@
             <Button fx:id="removeButton" layoutX="80.0" layoutY="10.0" mnemonicParsing="false" onAction="#RemoveItemButtonClicked" text="Remove Item" />
             <Line endY="20.0" stroke="#c3c3c3" strokeWidth="2.0" />
             <Button mnemonicParsing="false" onAction="#SearchButtonClicked" text="Search..." />
+            <Button fx:id="clearSearchButton" mnemonicParsing="false" onAction="#ClearSearchButtonClicked" text="Clear Search" />
         </items>
       </ToolBar>
       <TableView fx:id="table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#tableClicked">
          <columns>
-            <TableColumn fx:id="valueColumn" prefWidth="75.0" text="Value" />
-            <TableColumn fx:id="serialColumn" prefWidth="125.0" text="Serial #" />
-            <TableColumn fx:id="nameColumn" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="400.0" text="Name" />
+            <TableColumn fx:id="valueColumn" editable="false" prefWidth="75.0" text="Value" />
+            <TableColumn fx:id="serialColumn" editable="false" prefWidth="125.0" text="Serial #" />
+            <TableColumn fx:id="nameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="400.0" text="Name" />
          </columns>
       </TableView>
    </children>

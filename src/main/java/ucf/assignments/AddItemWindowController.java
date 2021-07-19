@@ -20,8 +20,7 @@ public class AddItemWindowController extends MainWindowController {
     public void addButtonClicked(ActionEvent actionEvent) {
         String name = nameBox.getText();
         String serial = serialBox.getText();
-        String valueString = valueBox.getText();
-        double value = Double.parseDouble(valueString);
+        String value = valueBox.getText();
         model.addItem(value, serial, name);
         scenes.closeScene(popup);
     }

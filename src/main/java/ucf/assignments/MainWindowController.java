@@ -27,6 +27,8 @@ public class MainWindowController {
     private Button editButton;
     @FXML
     private Button removeButton;
+    @FXML
+    private Button clearSearchButton;
 
     @FXML
     private void initialize()
@@ -38,6 +40,7 @@ public class MainWindowController {
         scenes.initialize();
         editButton.setDisable(true);
         removeButton.setDisable(true);
+        clearSearchButton.setDisable(true);
     }
     @FXML
     public void AddItemButtonClicked(ActionEvent actionEvent) {
@@ -57,6 +60,7 @@ public class MainWindowController {
     @FXML
     public void SearchButtonClicked(ActionEvent actionEvent) {
         scenes.loadScene(popup,"Search Item");
+        clearSearchButton.setDisable(false);
     }
     @FXML
     public void InstructionsButtonClicked(ActionEvent actionEvent) {
@@ -88,5 +92,12 @@ public class MainWindowController {
             removeButton.setDisable(false);
             editButton.setDisable(false);
         }
+    }
+    @FXML
+    public void ClearSearchButtonClicked(ActionEvent actionEvent) {
+        model.searchInventory(1,"");
+        removeButton.setDisable(true);
+        editButton.setDisable(true);
+        clearSearchButton.setDisable(true);
     }
 }
