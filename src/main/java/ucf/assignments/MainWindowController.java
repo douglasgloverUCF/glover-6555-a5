@@ -14,7 +14,7 @@ public class MainWindowController {
     static Stage popup = new Stage();
     static InventoryModel model = new InventoryModel();
     static SceneManager scenes = new SceneManager();
-    static FileManager files = new FileManager();
+
     @FXML
     private TableView<InventoryItem> table;
     @FXML
@@ -67,9 +67,11 @@ public class MainWindowController {
     }
     @FXML
     public void SaveAsButtonClicked(ActionEvent actionEvent) {
+        model.saveTable((Stage) table.getScene().getWindow());
     }
     @FXML
     public void LoadButtonClicked(ActionEvent actionEvent) {
+        model.loadTable((Stage) table.getScene().getWindow());
     }
     @FXML
     public void CloseButtonClicked(ActionEvent actionEvent) {
@@ -79,7 +81,6 @@ public class MainWindowController {
     {
         ObservableList<InventoryItem> items = model.getInventory();
         table.setItems(items);
-        popup.isFocused();
     }
     @FXML
     public void tableClicked(MouseEvent mouseEvent) {
@@ -100,4 +101,6 @@ public class MainWindowController {
         editButton.setDisable(true);
         clearSearchButton.setDisable(true);
     }
+
+
 }

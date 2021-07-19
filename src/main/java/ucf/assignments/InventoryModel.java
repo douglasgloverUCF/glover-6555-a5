@@ -1,9 +1,15 @@
 package ucf.assignments;
 
 import javafx.collections.ObservableList;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import java.io.File;
+
 import static javafx.collections.FXCollections.observableArrayList;
 
 public class InventoryModel {
+    FileManager files = new FileManager();
     static ObservableList<InventoryItem> inventory = observableArrayList();
     ObservableList<InventoryItem> tableInventory = observableArrayList();
     int selectedIndex = -1;
@@ -67,5 +73,36 @@ public class InventoryModel {
                 }
             }
         }
+    }
+    void saveTable(Stage stage)
+    {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Save file as...");
+        FileChooser.ExtensionFilter fileExtension;
+        fileExtension = new FileChooser.ExtensionFilter("TSV (.txt)", "*.txt");
+        fc.getExtensionFilters().add(fileExtension);
+        fileExtension = new FileChooser.ExtensionFilter("HTML (.html)", "*.html");
+        fc.getExtensionFilters().add(fileExtension);
+        fileExtension = new FileChooser.ExtensionFilter("JSON (.json)", "*.json");
+        fc.getExtensionFilters().add(fileExtension);
+        File saveFile = fc.showSaveDialog(stage);
+        String extension = fc.getSelectedExtensionFilter().getDescription();
+        files.saveFile(inventory, saveFile, extension);
+    }
+    void loadTable(Stage stage)
+    {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Load file...");
+        FileChooser.ExtensionFilter fileExtension;
+        fileExtension = new FileChooser.ExtensionFilter("TSV (.txt)", "*.txt");
+        fc.getExtensionFilters().add(fileExtension);
+        fileExtension = new FileChooser.ExtensionFilter("HTML (.html)", "*.html");
+        fc.getExtensionFilters().add(fileExtension);
+        fileExtension = new FileChooser.ExtensionFilter("JSON (.json)", "*.json");
+        fc.getExtensionFilters().add(fileExtension);
+        File loadFile = fc.showOpenDialog(stage);
+        String extension = fc.getSelectedExtensionFilter().getDescription();
+        inventory.clear();
+        inventory.setAll(files.loadFile(loadFile, extension));
     }
 }
