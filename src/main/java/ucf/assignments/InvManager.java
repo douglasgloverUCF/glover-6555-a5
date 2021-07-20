@@ -5,12 +5,7 @@
 package ucf.assignments;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class InvManager extends Application {
     public static void main(String[] args) {
@@ -18,6 +13,6 @@ public class InvManager extends Application {
     }
     @Override
     public void start(Stage primaryStage) {
-       SceneManager scenes = new SceneManager(primaryStage);
+       new SceneManager(primaryStage);
     }
 }

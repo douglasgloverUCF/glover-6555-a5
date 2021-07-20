@@ -1,11 +1,10 @@
+/*
+ *  UCF COP3330 Summer 2021 Assignment 5 Solution
+ *  Copyright 2021 Douglas Glover
+ */
 package ucf.assignments;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-
-import java.io.File;
 
 import static javafx.collections.FXCollections.observableArrayList;
 

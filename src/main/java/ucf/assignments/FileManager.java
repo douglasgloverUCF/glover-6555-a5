@@ -1,3 +1,7 @@
+/*
+ *  UCF COP3330 Summer 2021 Assignment 5 Solution
+ *  Copyright 2021 Douglas Glover
+ */
 package ucf.assignments;
 
 import com.google.gson.stream.JsonWriter;
@@ -51,7 +55,7 @@ public class FileManager {
             <!DOCTYPE html>
             <html>
             <table style="width:100%">
-            <tr><th>Value</th><th>Serial #</th><th>Name</th></tr>
+            <tr><th>Value</th><th>Serial Number</th><th>Name</th></tr>
             """);
             for(InventoryItem item : table)
             {
@@ -132,7 +136,7 @@ public class FileManager {
             <!DOCTYPE html>
             <html>
             <table style="width:100%">
-            <tr><th>Value</th><th>Serial #</th><th>Name</th></tr>
+            <tr><th>Value</th><th>Serial Number</th><th>Name</th></tr>
             """);
             while(sc.hasNextLine())
             {
