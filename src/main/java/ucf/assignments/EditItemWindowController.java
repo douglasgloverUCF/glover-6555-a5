@@ -47,6 +47,7 @@ public class EditItemWindowController {
         value = String.format("$%.2f", Double.valueOf(value));
         scenes.model.editItem(value, serial, name);
         scenes.model.selectedIndex = -1;
+        scenes.mainController.refreshTable();
         scenes.closeScene();
     }
     @FXML

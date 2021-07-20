@@ -46,6 +46,7 @@ public class AddItemWindowController {
         value = String.format("$%.2f", Double.valueOf(value));
         scenes.model.addItem(value, serial, name);
         errorText.visibleProperty().setValue(false);
+        scenes.mainController.refreshTable();
         scenes.closeScene();
     }
     @FXML

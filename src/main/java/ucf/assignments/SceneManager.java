@@ -87,7 +87,6 @@ public class SceneManager {
     }
     void closeScene()
     {
-        mainController.refreshTable();
         popup.close();
     }
     void closeMain()

@@ -18,7 +18,7 @@ public class SearchItemWindowController {
     TextField searchBox = new TextField();
     @FXML
     ChoiceBox<String> dropBox= new ChoiceBox<>();
-    ObservableList<String> searchChoiceList = observableArrayList("Search by Name", "Search by Serial #", "Search by Value");
+    ObservableList<String> searchChoiceList = observableArrayList("Search by Name", "Search by Serial #");
     @FXML
     private void initialize() {
         dropBox.setItems(searchChoiceList);

@@ -61,7 +61,7 @@ public class MainWindowController {
 
         removeButton.setDisable(true);
         editButton.setDisable(true);
-
+        clearSearchButton.setDisable(true);
         scenes.loadEditWindow(value, serial, name);
     }
     @FXML
@@ -70,6 +70,7 @@ public class MainWindowController {
         model.selectedIndex = -1;
         removeButton.setDisable(true);
         editButton.setDisable(true);
+        clearSearchButton.setDisable(true);
         refreshTable();
     }
     @FXML

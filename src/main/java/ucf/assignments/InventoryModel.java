@@ -52,12 +52,6 @@ public class InventoryModel {
                     tableInventory.add(item);
             }
         }
-        else {
-            for (InventoryItem item : inventory) {
-                if (item.getValue().contains(term))
-                    tableInventory.add(item);
-            }
-        }
     }
     Boolean verify(String input, String type)
     {
