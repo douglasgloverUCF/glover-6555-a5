@@ -53,42 +53,4 @@ public class InventoryModel {
             }
         }
     }
-    Boolean verify(String input, String type)
-    {
-        if(type.equals("Value"))
-        {
-            try {
-                Double.valueOf(input);
-                return true;
-            }
-            catch(Exception e)
-            {
-                return false;
-            }
-        }
-        else if(type.equals("Serial"))
-        {
-            if(input.length() == 10)
-            {
-                input = input.toUpperCase();
-                for(int i = 0; i < 10; i++)
-                {
-                    char c = input.charAt(i);
-                    if ((c < 'A' || c > 'Z') && (c < '0' || c > '9'))
-                        return false;
-                }
-                return true;
-            }
-        }
-        return false;
-    }
-    Boolean serialCheck(String serial, String exception)
-    {
-        for (InventoryItem item: inventory) {
-            if(serial.equals(item.getSerial()))
-                if(!serial.equals(exception))
-                    return false;
-        }
-        return true;
-    }
 }

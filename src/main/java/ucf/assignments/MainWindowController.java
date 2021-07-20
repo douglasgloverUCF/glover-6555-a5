@@ -24,7 +24,7 @@ public class MainWindowController {
     @FXML
     TableView<InventoryItem> table;
     @FXML
-    private TableColumn<InventoryItem, Double> valueColumn;
+    private TableColumn<InventoryItem, String> valueColumn;
     @FXML
     private TableColumn<InventoryItem, String> serialColumn;
     @FXML
@@ -85,6 +85,7 @@ public class MainWindowController {
         FileChooser.ExtensionFilter fileExtension;
         fileExtension = new FileChooser.ExtensionFilter("TSV (.txt)", "*.txt");
         fc.getExtensionFilters().add(fileExtension);
+        fc.setSelectedExtensionFilter(fileExtension);
         fileExtension = new FileChooser.ExtensionFilter("HTML (.html)", "*.html");
         fc.getExtensionFilters().add(fileExtension);
         fileExtension = new FileChooser.ExtensionFilter("JSON (.json)", "*.json");

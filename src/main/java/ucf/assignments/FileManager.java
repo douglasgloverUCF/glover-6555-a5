@@ -142,7 +142,7 @@ public class FileManager {
                 line = sc.nextLine();
                 lineSplit = line.split("</th><th>");
                 lineSplit[0] = lineSplit[0].replace("<tr><th>", "");
-                lineSplit[2] = lineSplit[2].replace("</tr></th>", "");
+                lineSplit[2] = lineSplit[2].replace("</th></tr>", "");
                 InventoryItem newItem = new InventoryItem(lineSplit[0], lineSplit[1], lineSplit[2]);
                 loadedTable.add(newItem);
             }
@@ -158,8 +158,7 @@ public class FileManager {
         ObservableList<InventoryItem> loadedTable = observableArrayList();
         try {
             JsonElement json = JsonParser.parseReader(new FileReader(loadFile));
-            JsonObject data = json.getAsJsonObject();
-            JsonArray jsonArray = data.get("products").getAsJsonArray();
+            JsonArray jsonArray = json.getAsJsonArray();
             for(JsonElement element : jsonArray)
             {
                 JsonObject object = element.getAsJsonObject();

@@ -11,6 +11,7 @@ import javafx.scene.text.Text;
 
 public class AddItemWindowController {
     SceneManager scenes;
+    VerifyInput verify = new VerifyInput();
     @FXML
     TextField nameBox = new TextField();
     @FXML
@@ -25,22 +26,12 @@ public class AddItemWindowController {
         String name = nameBox.getText();
         String serial = serialBox.getText();
         String value = valueBox.getText();
-        if (!scenes.model.verify(serial, "Serial"))
+        verify.inventory = scenes.model.inventory;
+        String verifyResult = verify.verifyInput(serial, value, "");
+        if(!verifyResult.equals("Pass"))
         {
             errorText.visibleProperty().setValue(true);
-            errorText.setText("Invalid serial #");
-            return;
-        }
-        if (!scenes.model.verify(value, "Value"))
-        {
-            errorText.visibleProperty().setValue(true);
-            errorText.setText("Invalid value");
-            return;
-        }
-        if (!scenes.model.serialCheck(serial, ""))
-        {
-            errorText.visibleProperty().setValue(true);
-            errorText.setText("Serial # is taken");
+            errorText.setText(verifyResult);
             return;
         }
         value = String.format("$%.2f", Double.valueOf(value));
