@@ -101,6 +101,7 @@ public class MainWindowController {
         FileChooser.ExtensionFilter fileExtension;
         fileExtension = new FileChooser.ExtensionFilter("TSV (.txt)", "*.txt");
         fc.getExtensionFilters().add(fileExtension);
+        fc.setSelectedExtensionFilter(fileExtension);
         fileExtension = new FileChooser.ExtensionFilter("HTML (.html)", "*.html");
         fc.getExtensionFilters().add(fileExtension);
         fileExtension = new FileChooser.ExtensionFilter("JSON (.json)", "*.json");
