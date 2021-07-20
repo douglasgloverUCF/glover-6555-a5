@@ -28,7 +28,7 @@ public class EditItemWindowController {
         String value = valueBox.getText();
         String originalSerial = scenes.model.inventory.get(scenes.model.selectedIndex).getSerial();
         verify.inventory = scenes.model.inventory;
-        String verifyResult = verify.verifyInput(serial, value, originalSerial);
+        String verifyResult = verify.verifyInput(value, serial, name, originalSerial);
         if(!verifyResult.equals("Pass"))
         {
             errorText.visibleProperty().setValue(true);

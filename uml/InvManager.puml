@@ -1,26 +1,40 @@
 @startuml
 
 openjfx.org.Application <|== InvManager
-InvManager -- MainWindowController
-MainWindowController -- SceneManager
-MainWindowController o-- InventoryModel
-AddItemWindowController --|> MainWindowController
-EditItemWindowController --|> MainWindowController
+InvManager o-- SceneManager
+
+SceneManager o-- MainWindowController
+SceneManager o-- InventoryModel
+SceneManager o-- AddItemWindowController
+SceneManager o-- EditItemWindowController
+SceneManager o-- SearchItemWindowController
 InventoryModel *-- InventoryItem
-InventoryModel o-- FileManager
+MainWindowController  o-- FileManager
+AddItemWindowController o-- VerifyInput
+EditItemWindowController o-- VerifyInput
 
 Class InvManager {
     main()
     start()
 }
 Class SceneManager {
-    initialize()
-    loadScene(String)
+    main: Stage
+    popup: Stage
+    mainController: MainWindowController
+    model: InventoryModel
+
+    loadAddWindow()
+    loadEditWindow(String, String, String)
+    loadSearchWindow()
+    loadScene(String, Scene)
+    closeScene()
+    closeMain()
 }
 Class MainWindowController {
-    popup: Stage
-    model: InventoryModel
     scenes: SceneManager
+    model: InventoryModel
+    files: FileManager
+
     table: TableView
     valueColumn: tableColumn
     serialColumn: tableColumn
@@ -33,8 +47,7 @@ Class MainWindowController {
     AddItemButtonClicked()
     EditItemButtonClicked()
     RemoveItemButtonClicked()
-    SearchItemButtonClicked()
-    InstructionsButtonClicked()
+    SearchButtonClicked()
     SaveAsButtonClicked()
     LoadButtonClicked()
     CloseButtonClicked()
@@ -43,21 +56,35 @@ Class MainWindowController {
     ClearSearchButtonClicked()
 }
 Class AddItemWindowController {
+    scenes: SceneManager
+    verify: VerifyInput
     nameBox: TextField
     serialBox: TextField
     valueBox: TextField
+    errorText: Text
 
-    initialize()
     addButtonClicked()
     cancelButtonClicked()
 }
 Class EditItemWindowController {
+    scenes: SceneManager
+    verify: VerifyInput
     nameBox: TextField
     serialBox: TextField
     valueBox: TextField
+    errorText: Text
+
+    editButtonClicked()
+    cancelButtonClicked()
+}
+Class SearchItemWindowController {
+    scenes: SceneManager
+    searchBox: TextField
+    dropBox: ChoiceBox
+    searchChoiceList: ObservableList<String>
 
     initialize()
-    editButtonClicked()
+    searchButtonClicked()
     cancelButtonClicked()
 }
 Class FileManager {
@@ -70,28 +97,32 @@ Class FileManager {
     loadHTML(File)
     loadJSON(File)
 }
+Class VerifyInput {
+    inventory: ObservableList<InventoryItem>
+
+    verifyInput(String, String, String, String)
+    verifyValue(String)
+    verifySerial(String)
+    serialCheck(String, String)
+    verifyName(String)
+}
 Class InventoryModel {
-    - ObservableList<InventoryItem>
-    files: FileManager
+    inventory: ObservableList<InventoryItem>
+    tableInventory: ObservableList<InventoryItem>
+    selectedIndex: int
 
     addItem(String, String, String)
     editItem(String, String, String)
     removeItem()
-    getSelectedItem()
-    getInventory()
-    searchinventory()
-    saveTable(Stage)
-    loadTable(Stage)
+    searchInventory(int, String)
 }
 Class InventoryItem {
     value: SimpleDoubleProperty
     serial: SimpleStringProperty
     name: SimpleStringProperty
+
     getValue()
     getSerial()
     getName()
-    setValue()
-    setSerial()
-    setName()
 }
 @enduml

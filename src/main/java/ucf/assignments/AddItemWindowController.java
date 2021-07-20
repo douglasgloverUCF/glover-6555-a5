@@ -27,7 +27,7 @@ public class AddItemWindowController {
         String serial = serialBox.getText();
         String value = valueBox.getText();
         verify.inventory = scenes.model.inventory;
-        String verifyResult = verify.verifyInput(serial, value, "");
+        String verifyResult = verify.verifyInput(value, serial, name, "");
         if(!verifyResult.equals("Pass"))
         {
             errorText.visibleProperty().setValue(true);

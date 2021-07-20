@@ -4,15 +4,19 @@ import javafx.collections.ObservableList;
 
 public class VerifyInput {
     ObservableList<InventoryItem> inventory;
-    String verifyInput(String serial, String value, String exception)
+    String verifyInput(String value, String serial, String name, String exception)
     {
+        if (!verifyName(name))
+        {
+            return "Invalid name";
+        }
         if (!verifySerial(serial))
         {
             return "Invalid serial #";
         }
         if (!serialCheck(serial, exception))
         {
-            return "Serial # is taken";
+            return "Serial # is already taken";
         }
         if (!verifyValue(value))
         {
@@ -55,5 +59,10 @@ public class VerifyInput {
                     return false;
         }
         return true;
+    }
+    Boolean verifyName(String input)
+    {
+        int length = input.length();
+        return length >= 2 && length <= 256;
     }
 }
