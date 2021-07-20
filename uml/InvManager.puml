@@ -3,13 +3,11 @@
 openjfx.org.Application <|== InvManager
 InvManager -- MainWindowController
 MainWindowController -- SceneManager
-MainWindowController o-- FileManager
 MainWindowController o-- InventoryModel
 AddItemWindowController --|> MainWindowController
 EditItemWindowController --|> MainWindowController
-RemoveItemWindowController --|> MainWindowController
-SearchItemWindowController --|> MainWindowController
 InventoryModel *-- InventoryItem
+InventoryModel o-- FileManager
 
 Class InvManager {
     main()
@@ -20,36 +18,70 @@ Class SceneManager {
     loadScene(String)
 }
 Class MainWindowController {
-    items: InventoryModel
+    popup: Stage
+    model: InventoryModel
     scenes: SceneManager
-    files: FileManager
-    addItemButtonClicked()
-    editItemButtonClicked()
-    removeItemButtonClicked()
-    searchItemButtonClicked()
-    saveInventoryAsTSVButtonClicked()
-    saveInventoryAsHTMLButtonClicked()
-    saveInventoryAsJSONButtonClicked()
+    table: TableView
+    valueColumn: tableColumn
+    serialColumn: tableColumn
+    nameColumn: tableColumn
+    editButton: Button
+    removeButton: Button
+    clearSearchButton: Button
+
+    initialize()
+    AddItemButtonClicked()
+    EditItemButtonClicked()
+    RemoveItemButtonClicked()
+    SearchItemButtonClicked()
+    InstructionsButtonClicked()
+    SaveAsButtonClicked()
+    LoadButtonClicked()
+    CloseButtonClicked()
+    refreshTable()
+    tableClicked()
+    ClearSearchButtonClicked()
 }
 Class AddItemWindowController {
+    nameBox: TextField
+    serialBox: TextField
+    valueBox: TextField
 
+    initialize()
+    addButtonClicked()
+    cancelButtonClicked()
 }
 Class EditItemWindowController {
+    nameBox: TextField
+    serialBox: TextField
+    valueBox: TextField
 
-}
-Class RemoveItemWindowController {
-
-}
-Class SearchItemWindowController {
-
+    initialize()
+    editButtonClicked()
+    cancelButtonClicked()
 }
 Class FileManager {
-    saveAsTSV()
-    saveAsHTML()
-    saveAsJSON()
+    saveFile(ObservableList, File, String)
+    saveTSV(ObservableList, File)
+    saveHTML(ObservableList, File)
+    saveJSON(ObservableList, File)
+    loadFile(File, String)
+    loadTSV(File)
+    loadHTML(File)
+    loadJSON(File)
 }
 Class InventoryModel {
     - ObservableList<InventoryItem>
+    files: FileManager
+
+    addItem(String, String, String)
+    editItem(String, String, String)
+    removeItem()
+    getSelectedItem()
+    getInventory()
+    searchinventory()
+    saveTable(Stage)
+    loadTable(Stage)
 }
 Class InventoryItem {
     value: SimpleDoubleProperty

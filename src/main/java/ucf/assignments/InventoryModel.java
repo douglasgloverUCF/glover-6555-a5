@@ -1,5 +1,6 @@
 package ucf.assignments;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -9,41 +10,29 @@ import java.io.File;
 import static javafx.collections.FXCollections.observableArrayList;
 
 public class InventoryModel {
-    FileManager files = new FileManager();
-    static ObservableList<InventoryItem> inventory = observableArrayList();
-    ObservableList<InventoryItem> tableInventory = observableArrayList();
+    ObservableList<InventoryItem> inventory;
+    ObservableList<InventoryItem> tableInventory;
     int selectedIndex = -1;
+    public InventoryModel()
+    {
+        this.inventory = observableArrayList();
+        this.tableInventory = observableArrayList();
+    }
+
     void addItem(String value, String serial, String name)
     {
         InventoryItem newItem = new InventoryItem(value, serial, name);
         inventory.add(newItem);
-        searchInventory(0, "");
     }
     void editItem(String value, String serial, String name)
     {
         InventoryItem newItem = new InventoryItem(value, serial, name);
         int index = inventory.indexOf(tableInventory.get(selectedIndex));
         inventory.set(index, newItem);
-        searchInventory(0, "");
     }
     void removeItem()
     {
         inventory.remove(tableInventory.get(selectedIndex));
-        searchInventory(0, "");
-    }
-    InventoryItem getSelectedItem()
-    {
-        if(selectedIndex != -1)
-        {
-            int index = inventory.indexOf(tableInventory.get(selectedIndex));
-            return inventory.get(selectedIndex);
-        }
-        else
-            return new InventoryItem("", "", "");
-    }
-    ObservableList<InventoryItem> getInventory()
-    {
-        return tableInventory;
     }
     void searchInventory(int setting, String term)
     {
@@ -52,57 +41,61 @@ public class InventoryModel {
             tableInventory.addAll(inventory);
             return;
         }
-        System.out.print(setting + " " + term);
-        switch (setting) {
-            case 0: {
-                for (InventoryItem item : inventory) {
-                    if (item.getName().contains(term))
-                        tableInventory.add(item);
-                }
+        if (setting == 0) {
+            for (InventoryItem item : inventory) {
+                if (item.getName().contains(term))
+                    tableInventory.add(item);
             }
-            case 1: {
-                for (InventoryItem item : inventory) {
-                    if (item.getSerial().contains(term))
-                        tableInventory.add(item);
-                }
+        }
+        else if (setting == 1) {
+            for (InventoryItem item : inventory) {
+                if (item.getSerial().contains(term))
+                    tableInventory.add(item);
             }
-            case 2: {
-                for (InventoryItem item : inventory) {
-                    if (item.getValue().contains(term))
-                        tableInventory.add(item);
-                }
+        }
+        else {
+            for (InventoryItem item : inventory) {
+                if (item.getValue().contains(term))
+                    tableInventory.add(item);
             }
         }
     }
-    void saveTable(Stage stage)
+    Boolean verify(String input, String type)
     {
-        FileChooser fc = new FileChooser();
-        fc.setTitle("Save file as...");
-        FileChooser.ExtensionFilter fileExtension;
-        fileExtension = new FileChooser.ExtensionFilter("TSV (.txt)", "*.txt");
-        fc.getExtensionFilters().add(fileExtension);
-        fileExtension = new FileChooser.ExtensionFilter("HTML (.html)", "*.html");
-        fc.getExtensionFilters().add(fileExtension);
-        fileExtension = new FileChooser.ExtensionFilter("JSON (.json)", "*.json");
-        fc.getExtensionFilters().add(fileExtension);
-        File saveFile = fc.showSaveDialog(stage);
-        String extension = fc.getSelectedExtensionFilter().getDescription();
-        files.saveFile(inventory, saveFile, extension);
+        if(type.equals("Value"))
+        {
+            try {
+                Double.valueOf(input);
+                return true;
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+        }
+        else if(type.equals("Serial"))
+        {
+            if(input.length() == 10)
+            {
+                input = input.toUpperCase();
+                for(int i = 0; i < 10; i++)
+                {
+                    char c = input.charAt(i);
+                    if ((c < 'A' || c > 'Z') && (c < '0' || c > '9'))
+                        return false;
+                }
+                return true;
+            }
+        }
+        return false;
     }
-    void loadTable(Stage stage)
+    Boolean serialCheck(String serial, String exception)
     {
-        FileChooser fc = new FileChooser();
-        fc.setTitle("Load file...");
-        FileChooser.ExtensionFilter fileExtension;
-        fileExtension = new FileChooser.ExtensionFilter("TSV (.txt)", "*.txt");
-        fc.getExtensionFilters().add(fileExtension);
-        fileExtension = new FileChooser.ExtensionFilter("HTML (.html)", "*.html");
-        fc.getExtensionFilters().add(fileExtension);
-        fileExtension = new FileChooser.ExtensionFilter("JSON (.json)", "*.json");
-        fc.getExtensionFilters().add(fileExtension);
-        File loadFile = fc.showOpenDialog(stage);
-        String extension = fc.getSelectedExtensionFilter().getDescription();
-        inventory.clear();
-        inventory.setAll(files.loadFile(loadFile, extension));
+        for (InventoryItem item: inventory) {
+            if(serial.equals(item.getSerial()))
+                if(!serial.equals(exception))
+                    return false;
+        }
+        return true;
     }
 }

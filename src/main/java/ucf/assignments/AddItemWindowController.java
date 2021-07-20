@@ -1,11 +1,14 @@
 package ucf.assignments;
 
+import com.sun.tools.javac.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class AddItemWindowController extends MainWindowController {
+public class AddItemWindowController {
+    SceneManager scenes;
     @FXML
     TextField nameBox = new TextField();
     @FXML
@@ -13,19 +16,38 @@ public class AddItemWindowController extends MainWindowController {
     @FXML
     TextField valueBox = new TextField();
     @FXML
-    private void initialize()
-    {
-    }
+    Text errorText = new Text();
+
     @FXML
     public void addButtonClicked(ActionEvent actionEvent) {
         String name = nameBox.getText();
         String serial = serialBox.getText();
         String value = valueBox.getText();
-        model.addItem(value, serial, name);
-        scenes.closeScene(popup);
+        if (!scenes.model.verify(serial, "Serial"))
+        {
+            errorText.visibleProperty().setValue(true);
+            errorText.setText("Invalid serial #");
+            return;
+        }
+        if (!scenes.model.verify(value, "Value"))
+        {
+            errorText.visibleProperty().setValue(true);
+            errorText.setText("Invalid value");
+            return;
+        }
+        if (!scenes.model.serialCheck(serial, ""))
+        {
+            errorText.visibleProperty().setValue(true);
+            errorText.setText("Serial # is taken");
+            return;
+        }
+        value = String.format("$%.2f", Double.valueOf(value));
+        scenes.model.addItem(value, serial, name);
+        errorText.visibleProperty().setValue(false);
+        scenes.closeScene();
     }
     @FXML
     public void cancelButtonClicked(ActionEvent actionEvent) {
-        scenes.closeScene(popup);
+        scenes.closeScene();
     }
 }

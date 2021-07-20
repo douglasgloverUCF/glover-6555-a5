@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#refreshTable" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.MainWindowController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.MainWindowController">
    <children>
       <MenuBar>
          <menus>
@@ -19,11 +19,6 @@
                   <MenuItem mnemonicParsing="false" onAction="#SaveAsButtonClicked" text="Save As..." />
                   <MenuItem mnemonicParsing="false" onAction="#LoadButtonClicked" text="Load..." />
                   <MenuItem mnemonicParsing="false" onAction="#CloseButtonClicked" text="Close" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#InstructionsButtonClicked" text="Instructions" />
                </items>
             </Menu>
          </menus>

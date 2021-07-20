@@ -1,6 +1,5 @@
 package ucf.assignments;
 
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class InventoryItem {
@@ -13,19 +12,6 @@ public class InventoryItem {
         value = new SimpleStringProperty(givenValue);
         serial = new SimpleStringProperty(givenSerial);
         name = new SimpleStringProperty(givenName);
-    }
-
-    public void setValue(String givenValue)
-    {
-        value.setValue(givenValue);
-    }
-    public void setSerial(String givenSerial)
-    {
-        serial.set(givenSerial);
-    }
-    public void setName(String givenName)
-    {
-        name.set(givenName);
     }
 
     public String getValue()

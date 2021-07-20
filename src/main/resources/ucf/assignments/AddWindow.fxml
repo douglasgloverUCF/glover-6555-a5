@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="160.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.AddItemWindowController">
    <children>
@@ -16,5 +16,6 @@
       <TextField fx:id="valueBox" layoutX="74.0" layoutY="90.0" prefHeight="25.0" prefWidth="200.0" />
       <Button layoutX="174.0" layoutY="124.0" mnemonicParsing="false" onAction="#addButtonClicked" text="Add" />
       <Button layoutX="222.0" layoutY="124.0" mnemonicParsing="false" onAction="#cancelButtonClicked" text="Cancel" />
+      <Text fx:id="errorText" fill="RED" layoutX="29.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error" visible="false" />
    </children>
 </AnchorPane>

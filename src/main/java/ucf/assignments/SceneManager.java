@@ -9,32 +9,86 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SceneManager {
-    Map<String, Scene> sceneCollection = new HashMap<>();
+    Stage main;
+    Stage popup = new Stage();
+    MainWindowController mainController;
+    InventoryModel model = new InventoryModel();
 
-    void initialize()
+    public SceneManager(Stage stage)
+    {
+        this.main = stage;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
+            Scene scene = new Scene(loader.load());
+            mainController = loader.getController();
+            mainController.scenes = this;
+            mainController.model = model;
+            main.setScene(scene);
+            main.setTitle("Inventory Manager");
+            main.show();
+        }
+        catch(Exception e) {
+            //fxml failure
+        }
+    }
+    void loadAddWindow()
     {
         try {
-            Scene scene;
-            scene = new Scene(FXMLLoader.load(getClass().getResource("AddWindow.fxml")));
-            sceneCollection.put("Add Item", scene);
-            scene = new Scene(FXMLLoader.load(getClass().getResource("EditWindow.fxml")));
-            sceneCollection.put("Edit Item", scene);
-            scene = new Scene(FXMLLoader.load(getClass().getResource("SearchWindow.fxml")));
-            sceneCollection.put("Search Item", scene);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AddWindow.fxml"));
+            Scene scene = new Scene(loader.load());
+            AddItemWindowController addController = loader.getController();
+            addController.scenes = this;
+            loadScene("Add Item", scene);
         }
-        catch (IOException e)
+        catch (Exception e)
         {
-            e.printStackTrace();
+            //fxml error
         }
     }
-    void loadScene(Stage stage, String scene)
+    void loadEditWindow(String value, String serial, String name)
     {
-        stage.setScene(sceneCollection.get(scene));
-        stage.setTitle(scene);
-        stage.show();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("EditWindow.fxml"));
+            Scene scene = new Scene(loader.load());
+            EditItemWindowController editController = loader.getController();
+            editController.scenes = this;
+            editController.valueBox.setText(value);
+            editController.serialBox.setText(serial);
+            editController.nameBox.setText(name);
+            loadScene("Edit Item", scene);
+        }
+        catch (Exception e)
+        {
+            //fxml error
+        }
     }
-    void closeScene(Stage stage)
+    void loadSearchWindow()
     {
-        stage.close();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("SearchWindow.fxml"));
+            Scene scene = new Scene(loader.load());
+            SearchItemWindowController searchController = loader.getController();
+            searchController.scenes = this;
+            loadScene("Search Item", scene);
+        }
+        catch (Exception e)
+        {
+            //fxml error
+        }
+    }
+    void loadScene(String sceneName, Scene scene)
+    {
+        popup.setScene(scene);
+        popup.setTitle(sceneName);
+        popup.show();
+    }
+    void closeScene()
+    {
+        mainController.refreshTable();
+        popup.close();
+    }
+    void closeMain()
+    {
+        main.close();
     }
 }

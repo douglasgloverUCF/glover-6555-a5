@@ -6,10 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import static javafx.collections.FXCollections.observableArrayList;
 
-public class SearchItemWindowController extends MainWindowController {
+public class SearchItemWindowController {
+    SceneManager scenes;
     @FXML
     TextField searchBox = new TextField();
     @FXML
@@ -24,11 +26,11 @@ public class SearchItemWindowController extends MainWindowController {
     public void searchButtonClicked(ActionEvent actionEvent) {
         int setting = dropBox.getSelectionModel().getSelectedIndex();
         String term = searchBox.getText();
-        model.searchInventory(setting, term);
-        scenes.closeScene(popup);
+        scenes.model.searchInventory(setting, term);
+        scenes.closeScene();
     }
     @FXML
     public void cancelButtonClicked(ActionEvent actionEvent) {
-        scenes.closeScene(popup);
+        scenes.closeScene();
     }
 }

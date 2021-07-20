@@ -18,15 +18,6 @@ public class InvManager extends Application {
     }
     @Override
     public void start(Stage primaryStage) {
-        try {
-            Scene scene = new Scene(FXMLLoader.load(getClass().getResource("MainWindow.fxml")));
-            primaryStage.setScene(scene);
-            primaryStage.setTitle("Inventory Manager");
-            primaryStage.show();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+       SceneManager scenes = new SceneManager(primaryStage);
     }
 }

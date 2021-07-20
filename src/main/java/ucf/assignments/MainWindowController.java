@@ -8,15 +8,17 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
+import javafx.stage.FileChooser;
+
+import java.io.File;
+
 
 public class MainWindowController {
-    static Stage popup = new Stage();
-    static InventoryModel model = new InventoryModel();
-    static SceneManager scenes = new SceneManager();
-
+    SceneManager scenes;
+    InventoryModel model;
+    FileManager files = new FileManager();;
     @FXML
-    private TableView<InventoryItem> table;
+    TableView<InventoryItem> table;
     @FXML
     private TableColumn<InventoryItem, Double> valueColumn;
     @FXML
@@ -33,22 +35,30 @@ public class MainWindowController {
     @FXML
     private void initialize()
     {
-        //connect table columns to appropriate ListItem variables
         valueColumn.setCellValueFactory(new PropertyValueFactory<InventoryItem, Double>("value"));
         serialColumn.setCellValueFactory(new PropertyValueFactory<InventoryItem, String>("serial"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<InventoryItem, String>("name"));
-        scenes.initialize();
         editButton.setDisable(true);
         removeButton.setDisable(true);
         clearSearchButton.setDisable(true);
     }
     @FXML
     public void AddItemButtonClicked(ActionEvent actionEvent) {
-        scenes.loadScene(popup,"Add Item");
+        scenes.loadAddWindow();
     }
     @FXML
     public void EditItemButtonClicked(ActionEvent actionEvent) {
-        scenes.loadScene(popup,"Edit Item");
+        InventoryItem currentItem = table.getSelectionModel().getSelectedItem();
+
+        String value = currentItem.getValue();
+        value = value.replace("$", "");
+        String serial = currentItem.getSerial();
+        String name = currentItem.getName();
+
+        removeButton.setDisable(true);
+        editButton.setDisable(true);
+
+        scenes.loadEditWindow(value, serial, name);
     }
     @FXML
     public void RemoveItemButtonClicked(ActionEvent actionEvent) {
@@ -56,30 +66,56 @@ public class MainWindowController {
         model.selectedIndex = -1;
         removeButton.setDisable(true);
         editButton.setDisable(true);
+        refreshTable();
     }
     @FXML
     public void SearchButtonClicked(ActionEvent actionEvent) {
-        scenes.loadScene(popup,"Search Item");
+        scenes.loadSearchWindow();
         clearSearchButton.setDisable(false);
     }
     @FXML
-    public void InstructionsButtonClicked(ActionEvent actionEvent) {
-    }
-    @FXML
     public void SaveAsButtonClicked(ActionEvent actionEvent) {
-        model.saveTable((Stage) table.getScene().getWindow());
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Save file as...");
+        FileChooser.ExtensionFilter fileExtension;
+        fileExtension = new FileChooser.ExtensionFilter("TSV (.txt)", "*.txt");
+        fc.getExtensionFilters().add(fileExtension);
+        fileExtension = new FileChooser.ExtensionFilter("HTML (.html)", "*.html");
+        fc.getExtensionFilters().add(fileExtension);
+        fileExtension = new FileChooser.ExtensionFilter("JSON (.json)", "*.json");
+        fc.getExtensionFilters().add(fileExtension);
+        File saveFile = fc.showSaveDialog(scenes.main);
+        String extension = fc.getSelectedExtensionFilter().getDescription();
+        files.saveFile(model.inventory, saveFile, extension);
     }
     @FXML
     public void LoadButtonClicked(ActionEvent actionEvent) {
-        model.loadTable((Stage) table.getScene().getWindow());
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Load file...");
+        FileChooser.ExtensionFilter fileExtension;
+        fileExtension = new FileChooser.ExtensionFilter("TSV (.txt)", "*.txt");
+        fc.getExtensionFilters().add(fileExtension);
+        fileExtension = new FileChooser.ExtensionFilter("HTML (.html)", "*.html");
+        fc.getExtensionFilters().add(fileExtension);
+        fileExtension = new FileChooser.ExtensionFilter("JSON (.json)", "*.json");
+        fc.getExtensionFilters().add(fileExtension);
+        File loadFile = fc.showOpenDialog(scenes.main);
+        String extension = fc.getSelectedExtensionFilter().getDescription();
+        model.inventory.clear();
+        model.tableInventory.clear();
+        model.inventory.setAll(files.loadFile(loadFile, extension));
+        model.tableInventory.setAll(files.loadFile(loadFile, extension));
+        refreshTable();
     }
     @FXML
     public void CloseButtonClicked(ActionEvent actionEvent) {
+        scenes.closeMain();
     }
-    @FXML
+
     public void refreshTable()
     {
-        ObservableList<InventoryItem> items = model.getInventory();
+        model.searchInventory(0, "");
+        ObservableList<InventoryItem> items = model.tableInventory;
         table.setItems(items);
     }
     @FXML
@@ -96,11 +132,9 @@ public class MainWindowController {
     }
     @FXML
     public void ClearSearchButtonClicked(ActionEvent actionEvent) {
-        model.searchInventory(1,"");
+        model.searchInventory(0,"");
         removeButton.setDisable(true);
         editButton.setDisable(true);
         clearSearchButton.setDisable(true);
     }
-
-
 }
