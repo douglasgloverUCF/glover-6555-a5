@@ -71,7 +71,6 @@ public class FileManager {
         }
     }
     void saveJSON(ObservableList<InventoryItem> table, File saveFile) {
-        ObservableList<InventoryItem> loadedTable = observableArrayList();
         try {
             JsonWriter writer = new JsonWriter(new OutputStreamWriter(new FileOutputStream(saveFile), StandardCharsets.UTF_8));
             writer.setIndent("    ");

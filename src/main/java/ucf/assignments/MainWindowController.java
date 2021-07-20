@@ -20,7 +20,7 @@ import java.io.File;
 public class MainWindowController {
     SceneManager scenes;
     InventoryModel model;
-    FileManager files = new FileManager();;
+    FileManager files = new FileManager();
     @FXML
     TableView<InventoryItem> table;
     @FXML
@@ -39,9 +39,9 @@ public class MainWindowController {
     @FXML
     private void initialize()
     {
-        valueColumn.setCellValueFactory(new PropertyValueFactory<InventoryItem, Double>("value"));
-        serialColumn.setCellValueFactory(new PropertyValueFactory<InventoryItem, String>("serial"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<InventoryItem, String>("name"));
+        valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
+        serialColumn.setCellValueFactory(new PropertyValueFactory<>("serial"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         editButton.setDisable(true);
         removeButton.setDisable(true);
         clearSearchButton.setDisable(true);
