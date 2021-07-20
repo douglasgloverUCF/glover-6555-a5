@@ -25,6 +25,7 @@ public class SceneManager {
             mainController.model = model;
             main.setScene(scene);
             main.setTitle("Inventory Manager");
+            main.setResizable(false);
             main.show();
         }
         catch(Exception e) {
@@ -80,6 +81,8 @@ public class SceneManager {
     {
         popup.setScene(scene);
         popup.setTitle(sceneName);
+        popup.setResizable(false);
+        popup.setAlwaysOnTop(true);
         popup.show();
     }
     void closeScene()
