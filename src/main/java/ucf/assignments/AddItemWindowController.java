@@ -23,25 +23,34 @@ public class AddItemWindowController {
 
     @FXML
     public void addButtonClicked(ActionEvent actionEvent) {
+        verify.inventory = scenes.model.inventory;
+        //get data from boxes
         String name = nameBox.getText();
         String serial = serialBox.getText();
         String value = valueBox.getText();
-        verify.inventory = scenes.model.inventory;
+        //check if input data is valid
         String verifyResult = verify.verifyInput(value, serial, name, "");
+        //if not valid display error message
         if(!verifyResult.equals("Pass"))
         {
             errorText.visibleProperty().setValue(true);
             errorText.setText(verifyResult);
             return;
         }
+        //if valid set value to correct formatting
         value = String.format("$%.2f", Double.valueOf(value));
+        //add item to inventory with collected data
         scenes.model.addItem(value, serial, name);
+        //clear any errors displayed
         errorText.visibleProperty().setValue(false);
+        //refresh the table
         scenes.mainController.refreshTable();
+        //close the pop up window
         scenes.closeScene();
     }
     @FXML
     public void cancelButtonClicked(ActionEvent actionEvent) {
+        //close the pop up window
         scenes.closeScene();
     }
 }

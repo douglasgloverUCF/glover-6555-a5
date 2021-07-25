@@ -21,18 +21,24 @@ public class SearchItemWindowController {
     ObservableList<String> searchChoiceList = observableArrayList("Search by Name", "Search by Serial #");
     @FXML
     private void initialize() {
+        //set up drop down selection choices
         dropBox.setItems(searchChoiceList);
         dropBox.setValue("Search by Name");
     }
     @FXML
     public void searchButtonClicked(ActionEvent actionEvent) {
+        //get setting chosen
         int setting = dropBox.getSelectionModel().getSelectedIndex();
+        //get search term entered
         String term = searchBox.getText();
+        //get search results
         scenes.model.searchInventory(setting, term);
+        //close pop up
         scenes.closeScene();
     }
     @FXML
     public void cancelButtonClicked(ActionEvent actionEvent) {
+        //close pop up
         scenes.closeScene();
     }
 }

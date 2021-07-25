@@ -23,26 +23,36 @@ public class EditItemWindowController {
 
     @FXML
     public void editButtonClicked(ActionEvent actionEvent) {
+        verify.inventory = scenes.model.inventory;
+        //get data from boxes
         String name = nameBox.getText();
         String serial = serialBox.getText();
         String value = valueBox.getText();
+        //get serial value from selected index
         String originalSerial = scenes.model.inventory.get(scenes.model.selectedIndex).getSerial();
-        verify.inventory = scenes.model.inventory;
+        //check if input data is valid
         String verifyResult = verify.verifyInput(value, serial, name, originalSerial);
+        //if not valid display error message
         if(!verifyResult.equals("Pass"))
         {
             errorText.visibleProperty().setValue(true);
             errorText.setText(verifyResult);
             return;
         }
+        //if valid set value to correct formatting
         value = String.format("$%.2f", Double.valueOf(value));
+        //edit item at selected index in inventory with collected data
         scenes.model.editItem(value, serial, name);
+        //deselect the selected index
         scenes.model.selectedIndex = -1;
+        //refresh the table
         scenes.mainController.refreshTable();
+        //close the pop up window
         scenes.closeScene();
     }
     @FXML
     public void cancelButtonClicked(ActionEvent actionEvent) {
+        //close the pop up window
         scenes.closeScene();
     }
 }

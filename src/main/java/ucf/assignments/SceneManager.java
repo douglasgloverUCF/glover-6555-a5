@@ -18,27 +18,33 @@ public class SceneManager {
     {
         this.main = stage;
         try {
+            //load main window
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
             Scene scene = new Scene(loader.load());
             mainController = loader.getController();
+            //give main controller access to scene manager and inventory
             mainController.scenes = this;
             mainController.model = model;
+            //show main window
             main.setScene(scene);
             main.setTitle("Inventory Manager");
             main.setResizable(false);
             main.show();
         }
         catch(Exception e) {
-            //fxml failure
+            //fxml error
         }
     }
     void loadAddWindow()
     {
         try {
+            //load add item pop up window
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AddWindow.fxml"));
             Scene scene = new Scene(loader.load());
             AddItemWindowController addController = loader.getController();
+            //give add item controller access to scene manager
             addController.scenes = this;
+            //create popup
             loadScene("Add Item", scene);
         }
         catch (Exception e)
@@ -49,13 +55,17 @@ public class SceneManager {
     void loadEditWindow(String value, String serial, String name)
     {
         try {
+            //load edit item pop up window
             FXMLLoader loader = new FXMLLoader(getClass().getResource("EditWindow.fxml"));
             Scene scene = new Scene(loader.load());
             EditItemWindowController editController = loader.getController();
+            //give edit item controller access to scene manager
             editController.scenes = this;
+            //give edit item controller given data
             editController.valueBox.setText(value);
             editController.serialBox.setText(serial);
             editController.nameBox.setText(name);
+            //create popup
             loadScene("Edit Item", scene);
         }
         catch (Exception e)
@@ -66,10 +76,13 @@ public class SceneManager {
     void loadSearchWindow()
     {
         try {
+            //load search pop up window
             FXMLLoader loader = new FXMLLoader(getClass().getResource("SearchWindow.fxml"));
             Scene scene = new Scene(loader.load());
             SearchItemWindowController searchController = loader.getController();
+            //give search item controller access to scene manager
             searchController.scenes = this;
+            //create popup
             loadScene("Search Item", scene);
         }
         catch (Exception e)
@@ -79,6 +92,7 @@ public class SceneManager {
     }
     void loadScene(String sceneName, Scene scene)
     {
+        //show given scene with given title in pop up
         popup.setScene(scene);
         popup.setTitle(sceneName);
         popup.setResizable(false);
@@ -87,10 +101,12 @@ public class SceneManager {
     }
     void closeScene()
     {
+        //close scene in popup window
         popup.close();
     }
     void closeMain()
     {
+        //close application
         main.close();
     }
 }
