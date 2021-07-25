@@ -1,0 +1,17 @@
+[
+    {
+        "value": "$1.00",
+        "serial": "1234567890",
+        "name": "Cow"
+    },
+    {
+        "value": "$2.00",
+        "serial": "ABC4567890",
+        "name": "Pig"
+    },
+    {
+        "value": "$3.00",
+        "serial": "1234567ABC",
+        "name": "Chicken"
+    }
+]

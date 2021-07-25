@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+<table style="width:100%">
+<tr><th>Value</th><th>Serial Number</th><th>Name</th></tr>
+<tr><th>$1.00</th><th>1234567890</th><th>Cow</th></tr>
+<tr><th>$2.00</th><th>ABC4567890</th><th>Pig</th></tr>
+<tr><th>$3.00</th><th>1234567ABC</th><th>Chicken</th></tr>
+</table>
+</html>
